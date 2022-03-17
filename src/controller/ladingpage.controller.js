@@ -1,0 +1,23 @@
+import { clientGoogleSheet } from './googlesheet.controller';
+
+let getClientSettingGoogleSheet = async (req, res) => {
+    let doc = await clientGoogleSheet();
+    let sheet = doc.sheetsById[1915536628]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+    let rows = await sheet.getRows(); // can pass in { limit, offset }
+    const items = {};
+    await rows.map((item) => {
+        const itemIdsValue = item._rawData;
+        items[itemIdsValue[0]] = itemIdsValue[1]
+        return item;
+    });
+    console.log('items', items); // MongLV log fix bug
+
+    return res.render('index', {locals: items});
+};
+let postSuccess = async (req, res) => {
+    return res.render('thank-you');
+};
+module.exports = {
+    getClientSettingGoogleSheet,
+    postSuccess,
+};

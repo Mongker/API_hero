@@ -15,7 +15,7 @@ function getMaxId() {
     return `[${max}]`;
 }
 
-const imageUploader = multer({ dest: 'images/' });
+const imageUploader = multer({ dest: 'src/images/' });
 uploadRouter.post('/upload', imageUploader.single('file'), (req, res) => {
     const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     let orgName = processedFile.originalname || ''; // Tên gốc trong máy tính của người upload

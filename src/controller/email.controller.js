@@ -9,7 +9,6 @@ let sendMail = async (req, res) => {
         // Lấy data truyền lên từ form phía client
         const { to, subject, data } = req.body;
         const {NAME, EMAIL, PHONE, ADDRESS, CITY} = data;
-        console.log('data', data); // MongLV log fix bug
         // Thực hiện gửi email
         // await mailer.sendMail(to, subject, body)
         await mailer.sendMail(to, subject, 'TEST')
