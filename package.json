@@ -2,16 +2,21 @@
   "name": "server-mybook",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel ./src -d ./build/src",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/src/server.js",
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.17.7",
+    "axios": "^0.26.1",
     "body-parser": "^1.19.0",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
@@ -20,7 +25,9 @@
     "exceljs": "^4.2.1",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
+    "google-spreadsheet": "^3.2.0",
     "md5": "^2.3.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.9.9",
     "multer": "^1.4.2",
     "node-bayes": "^1.1.0",
@@ -29,6 +36,11 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.7",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
     "prettier": "2.2.1"
   }
 }

@@ -1,6 +1,7 @@
 require('dotenv').config();
 // server.js
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,6 +12,7 @@ const mongoose = require('mongoose');
 const sliderRouter = require('./router/slider.router');
 const uploadRouter = require('./router/upload.router');
 const emailRouter = require('./router/email.router');
+import initGoogleSheetRoutes from './router/googlesheet.router';
 
 // DATA
 const port = process.env.PORT || 1999;
@@ -42,7 +44,7 @@ app.use(bodyParser.json());
 app.use(sliderRouter);
 app.use(emailRouter);
 app.use('/api/file', uploadRouter);
-
+initGoogleSheetRoutes(app);
 app.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);
 });
