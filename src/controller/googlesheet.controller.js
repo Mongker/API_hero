@@ -74,13 +74,13 @@ let addClientGoogleSheet = async (req, res) => {
                 "ADDRESS":ADDRESS,
                 "CITY": CITY
             });
-        // await axios.post('http://localhost:2000/api/sent-mail', {
-        //     "to": EMAIL,
-        //     "subject": '[THÔNG BÁO] Có khách hàng mới',
-        //     "data": {
-        //         NAME, EMAIL, PHONE, ADDRESS, CITY
-        //     }
-        // })
+        await axios.post('http://localhost:4040/api/sent-mail', {
+            "to": EMAIL,
+            "subject": '[THÔNG BÁO] Có khách hàng mới',
+            "data": {
+                NAME, EMAIL, PHONE, ADDRESS, CITY
+            }
+        })
         return res.json({ message: 'SUCCESS' })
     }
     catch (e) {
