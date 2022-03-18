@@ -1,5 +1,5 @@
-import express from "express";
-import homepageController from "../controller/googlesheet.controller";
+const express = require('express');
+const homepageController = require('../controller/googlesheet.controller');
 
 let router = express.Router();
 

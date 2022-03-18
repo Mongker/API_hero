@@ -1,4 +1,4 @@
-import { clientGoogleSheet } from './googlesheet.controller';
+const { clientGoogleSheet } = require('./googlesheet.controller');
 
 let getClientSettingGoogleSheet = async (req, res) => {
     let doc = await clientGoogleSheet();

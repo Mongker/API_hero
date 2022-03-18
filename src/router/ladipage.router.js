@@ -1,6 +1,5 @@
-import express from "express";
-import ladingpageController from "../controller/ladingpage.controller";
-
+const express = require('express');
+const ladingpageController = require('../controller/ladingpage.controller');
 let router = express.Router();
 
 let initLandingPageRoutes = (app) => {

@@ -28,7 +28,7 @@ let getCDN = async (req, res) => {
     }
     res.sendFile(path.resolve(`./src/views/cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/${fileName}`));
 };
-export default {
+module.exports = {
     getResourcesAssets,
     getCDN,
 };

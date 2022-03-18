@@ -1,5 +1,5 @@
-import express from 'express';
-import resourcesAssets from '../controller/resources.controller';
+const express = require('express');
+const resourcesAssets = require('../controller/resources.controller');
 
 let router = express.Router();
 

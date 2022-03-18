@@ -12,4 +12,4 @@ const URL_PATH = {
     API_FILE: '/api/file',
     EMAIL: '/api/sent-mail',
 }
-export default URL_PATH;
+module.exports = URL_PATH;

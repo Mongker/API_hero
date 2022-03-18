@@ -1,10 +1,10 @@
 require('dotenv').config();
 // server.js
 // const express = require('express');
-import express from 'express';
-import es6Renderer from 'express-es6-template-engine';
-import path from 'path';
-import morgan from 'morgan';
+const express = require('express');
+const es6Renderer = require('express-es6-template-engine');
+const path = require('path');
+// import morgan from 'morgan';
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -14,9 +14,9 @@ const mongoose = require('mongoose');
 const sliderRouter = require('./router/slider.router');
 const uploadRouter = require('./router/upload.router');
 const emailRouter = require('./router/email.router');
-import initGoogleSheetRoutes from './router/googlesheet.router';
-import initResourcesRoutes from './router/resources.router';
-import initLandingPageRoutes from './router/ladipage.router';
+const initGoogleSheetRoutes = require('./router/googlesheet.router');
+const initResourcesRoutes = require('./router/resources.router');
+const initLandingPageRoutes = require('./router/ladipage.router');
 
 // DATA
 const port = process.env.PORT || 1999;
