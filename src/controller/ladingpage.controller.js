@@ -12,7 +12,7 @@ let getClientSettingGoogleSheet = async (req, res) => {
     });
     console.log('items', items); // MongLV log fix bug
 
-    return res.render('index', {locals: items});
+    return res.render('index.html', {locals: items});
 };
 let postSuccess = async (req, res) => {
     return res.render('thank-you');

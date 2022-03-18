@@ -8,10 +8,9 @@ let sendMail = async (req, res) => {
     try {
         // Lấy data truyền lên từ form phía client
         const { to, subject, data } = req.body;
-        const {NAME, EMAIL, PHONE, ADDRESS, CITY} = data;
         // Thực hiện gửi email
         // await mailer.sendMail(to, subject, body)
-        await mailer.sendMail(to, subject, 'TEST')
+        await mailer.sendMail(to, subject, data)
 
         // Quá trình gửi email thành công thì gửi về thông báo success cho người dùng
         return res.json({ message: 'SUCCESS' });
