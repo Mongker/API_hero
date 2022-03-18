@@ -32,14 +32,14 @@
         <div class="hotline-phone-ring-circle"></div>
         <div class="hotline-phone-ring-circle-fill"></div>
         <div class="hotline-phone-ring-img-circle">
-          <a href="tel:0961323969" class="pps-btn-img">
+          <a href="tel:${PHONE}" class="pps-btn-img">
             <img src='assets/images/phone.png' alt="Gọi điện thoại" width="50" />
           </a>
         </div>
       </div>
       <div class="hotline-bar">
-        <a href="tel:0961323969">
-          <span class="text-hotline">0961323969</span>
+        <a href="tel:0${PHONE}">
+          <span class="text-hotline">0${PHONE}</span>
         </a>
       </div>
     </div>
@@ -485,84 +485,85 @@
       <div class="slideContent">
         <div class="row">
           <div class="col-lg-6 textSlide">
-            <h5 class="title coloreffect">
-              Ân hạn nợ gốc vô thời hạn - Chỉ 50% GTCH để nhận bàn giao
+            <h5 class="title coloreffect" title='TITLE_01'>
+              ${TITLE_01 ? TITLE_01 : `Ân hạn nợ gốc vô thời hạn - Chỉ 50% GTCH để nhận bàn giao`}
             </h5>
-            <p>
-              Khách hàng chỉ cần đóng 15% giá trị căn hộ (tương đương 180 triệu) để ký kết hợp đồng mua bán, và đóng lũy tiến 50% giá
+            <p title='CONTENT_02'>
+              ${CONTENT_02 ? CONTENT_02 : `Khách hàng chỉ cần đóng 15% giá trị căn hộ (tương đương 180 triệu) để ký kết hợp đồng mua bán, và đóng lũy tiến 50% giá
               trị căn hộ để nhận bàn giao nhà. Phần còn lại sẽ được ân hạn vô thời hạn và trả lãi khoảng 4,2 triệu/tháng, tương đương
-              lãi suất từ 9%/năm.
+              lãi suất từ 9%/năm.`}
             </p>
-            <p>Khách hàng có thể đóng tiền gốc bất cứ khi nào, không lo phạt thanh toán trước hạn, không lo duyệt hồ sơ vay vốn, không
-            cần tài sản đảm bảo. Trong khi đó, sau khi nhận bàn giao, khách hàng nhận căn hộ có thể khai thác vận hành luôn, tạo ra
-            dòng tiền bền vững, gần như “ngay lập tức”</p>
+            <p title='CONTENT_03'>
+              ${CONTENT_03 ? CONTENT_03 : `Khách hàng có thể đóng tiền gốc bất cứ khi nào, không lo phạt thanh toán trước hạn, không lo duyệt hồ sơ vay vốn, không
+              cần tài sản đảm bảo. Trong khi đó, sau khi nhận bàn giao, khách hàng nhận căn hộ có thể khai thác vận hành luôn, tạo ra
+              dòng tiền bền vững, gần như “ngay lập tức”`}
+            </p>
           </div>
           <div class="col-lg-6 pd0">
             <div class="slide1">
               <div class="item">
-                <img class="img-fluid" src='assets/images/1.%20Sky%20Roman%20Fall.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_01' src='${IMAGE_01 ? IMAGE_01 : "assets/images/1.%20Sky%20Roman%20Fall.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/2.%202_KBHB_Condotel_Sanvuon_210406.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_02' src='${IMAGE_02 ? IMAGE_02 : "assets/images/2.%202_KBHB_Condotel_Sanvuon_210406.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/3.%20KBHB_PCTI_BeBoi_fr2_OP2.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_03' src='${IMAGE_03 ? IMAGE_03 : "assets/images/3.%20KBHB_PCTI_BeBoi_fr2_OP2.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/4.%20Lasen%20Treatment%20Spa.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_04' src='${IMAGE_04 ? IMAGE_04 : "assets/images/4.%20Lasen%20Treatment%20Spa.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/5.%20KBHB_PCTI_Condoltel_VuonLaHan.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_05' src='${IMAGE_05 ? IMAGE_05 : "assets/images/5.%20KBHB_PCTI_Condoltel_VuonLaHan.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/6.%20KBHB_NhaHoiNghi_ViewTamMatHoiNghi_Op2.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_06' src='${IMAGE_06 ? IMAGE_06 : "assets/images/6.%20KBHB_NhaHoiNghi_ViewTamMatHoiNghi_Op2.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/imgslide11.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_07' src='${IMAGE_07 ? IMAGE_07 : "assets/images/imgslide11.jpg"}' alt="" />
               </div>
             </div>
           </div>
         </div>
         <div class="row row_reverse">
           <div class="col-lg-6 textSlide">
-            <h5 class="title coloreffect">
-              APEC MANDALA – THIÊN ĐƯỜNG NGHỈ DƯỠNG & SỨC KHỎE
+            <h5 class="title coloreffect" title='TITLE_03'>
+              ${TITLE_03 ? TITLE_03 : `APEC MANDALA – THIÊN ĐƯỜNG NGHỈ DƯỠNG & SỨC KHỎE`}
             </h5>
-            <p>
-              Apec Mandala được núi rừng ban tặng nguồn khoáng nóng tự nhiên hình thành trên các vỉa đá vôi 250 triệu
+            <p title='CONTENT_05'>
+              ${CONTENT_05 ? CONTENT_05 : `Apec Mandala được núi rừng ban tặng nguồn khoáng nóng tự nhiên hình thành trên các vỉa đá vôi 250 triệu
               năm tuổi, tích tụ Canxi, Natri, Kali,…. Dòng nước giàu kiềm, giàu khoáng chất này được dẫn đến từng căn
               hộ, khởi nguồn cho nền tảng sức khỏe viên mãn, hỗ trơ điều trị các bệnh về dạ dày, cơ xương khớp… và phòng
               ngừa ung thư sớm
               Đặc biệt, trung tâm hợp tác Y khoa quốc tế Apec Medical nằm tại trung tâm dự án, nơi quy tụ các bác sỹ
-              giỏi và đội ngũ y tế làm việc 24/7
-
+              giỏi và đội ngũ y tế làm việc 24/7`}
             </p>
           </div>
           <div class="col-lg-6 pd0">
             <div class="slide2">
               <div class="item">
-                <img class="img-fluid" src='assets/images/1.%20Sky%20Villas%20View.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_08' src='${IMAGE_08 ? IMAGE_08 : "assets/images/1.%20Sky%20Villas%20View.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/2.Mandala%20Signature%20Hotel.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_09' src='${IMAGE_09 ? IMAGE_09 : "assets/images/2.Mandala%20Signature%20Hotel.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/3.%20Anamia%20Villas.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_10' src='${IMAGE_10 ? IMAGE_10 : "assets/images/3.%20Anamia%20Villas.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/Villa%20-%20view%201.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_11' src='${IMAGE_11 ? IMAGE_11 : "assets/images/Villa%20-%20view%201.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/Villa%20-%20view%202.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_12' src='${IMAGE_12 ? IMAGE_12 : "assets/images/Villa%20-%20view%202.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/Villa%20-%20view%203.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_13' src='${IMAGE_13 ? IMAGE_13 : "assets/images/Villa%20-%20view%203.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/Villa%20-%20view%204.jpg' alt="" />
+                <img class="img-fluid" title='IMAGE_14' src='${IMAGE_14 ? IMAGE_14 : "assets/images/Villa%20-%20view%204.jpg"}' alt="" />
               </div>
               <div class="item">
-                <img class="img-fluid" src='assets/images/Sky%20Villa_Ná»%C2%99i%20tháº¥t%20minh%20há»%C2%8Da%20(Bowmore).html' alt="" />
+                <img class="img-fluid" title='IMAGE_15' src='${IMAGE_15 ? IMAGE_15 : "assets/images/imgslide11.jpg"}' alt="" />
               </div>
             </div>
           </div>
@@ -575,16 +576,15 @@
       <img class="img-fluid bgrleaves leavesBot" src='assets/images/laleftbot.png' alt="" />
       <div class="container">
         <div class="titleCenter">
-          <h5 class="title colortt1">
-          Mua một sở hữu chuỗi - Tặng 90 đêm nghỉ dưỡng 5* <br> áp dụng trên toàn quốc
+          <h5 class="title colortt1" title='TITLE_02'>
+            ${TITLE_02 ? TITLE_02 : `Mua một sở hữu chuỗi - Tặng 90 đêm nghỉ dưỡng 5* <br> áp dụng trên toàn quốc`}
           </h5>
-          <p>
-            Với đặc quyền: “MUA 1 – SỞ HỮU CHUỖI”, cư dân và những nhà đầu tư mua căn hộ tại Kim Bôi – Hòa Bình còn được chuyển
+          <p title='CONTENT_04'>
+            ${CONTENT_04 ? CONTENT_04 : `Với đặc quyền: “MUA 1 – SỞ HỮU CHUỖI”, cư dân và những nhà đầu tư mua căn hộ tại Kim Bôi – Hòa Bình còn được chuyển
             điểm, đổi ngày nghỉ vô cùng linh hoạt trên tất cả các điểm đến của tập đoàn Apec khắp Việt Nam. APEC GROUP đang là chủ
             sở hữu hàng loạt dự án lớn như khu đô thị đáng sống nhất 2020 - Apec Royal Park Huế với tổng mức đầu tư 10.000 tỷ đồng,
             Apec Mandala Wyndham Mũi Né - top 10 khách sạn lớn nhất châu Á với gần 3000 phòng… cùng hàng loạt các khách sạn 5 sao
-            tại: Phú Yên, Lạng Sơn, Bắc Giang, Hội An, Quy Nhơn, Yên Bái...
-
+            tại: Phú Yên, Lạng Sơn, Bắc Giang, Hội An, Quy Nhơn, Yên Bái...`}
           </p>
         </div>
         <div class="contentTap">
@@ -1448,7 +1448,7 @@
     <section class="fw" id="registration">
       <div class="row row_rev">
         <div class="col-lg-6 pd0">
-          <img class="img-fluid" src='assets/images/imgRes.jpg' alt="" />
+          <img class="img-fluid" title='IMAGE_16' src='${IMAGE_16 ? IMAGE_16 : "assets/images/imgRes.jpg"}' alt="" />
         </div>
         <div class="col-lg-6 pd0 contentRegistration">
           <h5 class="title coloreffect">
@@ -1507,27 +1507,28 @@
         <div class="row">
           <div class="col-xs-15 col-md-15 col-lg-15">
             <h1 class="logo">
-              <a href="#banner"><img class="img-fluid" src='assets/images/logo.png' alt="" />
+              <a href="#banner"><img title='IMAGE_17' class="img-fluid" src='${IMAGE_17 ? IMAGE_17 : "assets/images/logo.png"}' alt="" />
               </a>
             </h1>
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">ĐỊA CHỈ DỰ ÁN</h6>
-            <p>
-              <i class="fas fa-map-marker-alt"></i>Xóm Mớ Đá, xã Hạ Bì, huyện Kim Bôi, tỉnh Hòa Bình
+            <p title='TEXT_01'>
+              <i class="fas fa-map-marker-alt"></i>
+              ${TEXT_01 ? TEXT_01 : `Xóm Mớ Đá, xã Hạ Bì, huyện Kim Bôi, tỉnh Hòa Bình`}
             </p>
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">hotline</h6>
-            <p><i class="fas fa-phone-alt"></i><a href="tel:0961323969">0961323969</a></p>
+            <p><i class="fas fa-phone-alt"></i><a href="tel:0${PHONE}">0${PHONE}</a></p>
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">email</h6>
-            <p><i class="far fa-envelope"></i>apecmandalakimboi@idjf.vn</p>
+            <p><i class="far fa-envelope"></i>@{EMAIL}</p>
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">fanpage</h6>
-            <p>Apec Mandala Sky Villas Kim Boi</p>
+            <p>${FANPAGE}</p>
           </div>
         </div>
       </div>
