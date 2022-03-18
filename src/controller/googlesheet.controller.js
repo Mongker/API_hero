@@ -64,8 +64,17 @@ let addClientGoogleSheet = async (req, res) => {
         // const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
         const sheet = doc.sheetsById[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
         // const sheet1 = doc.sheetsById[1915536628]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
-
+        let sheet2 = doc.sheetsById[1915536628]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+        let rows = await sheet2.getRows(); // can pass in { limit, offset }
+        const items = {};
+        await rows.map((item) => {
+            const itemIdsValue = item._rawData;
+            items[itemIdsValue[0]] = itemIdsValue[1]
+            return item;
+        });
         const {NAME, EMAIL, PHONE, ADDRESS, CITY} = req.body;
+        const email = items.EMAIL ? items.EMAIL : 'levanmong.dola.99@gmail.com'
+        const ngrok = items.URL_API ? items.URL_API : 'levanmong.dola.99@gmail.com'
         await sheet.addRow(
             {
                 "NAME": NAME,
@@ -75,8 +84,8 @@ let addClientGoogleSheet = async (req, res) => {
                 "ADDRESS":ADDRESS,
                 "CITY": CITY
             });
-        await axios.post('http://localhost:4040/api/sent-mail', {
-            "to": EMAIL,
+        await axios.post(ngrok + '/api/sent-mail', {
+            "to": email,
             "subject": '[THÔNG BÁO] Có khách hàng mới',
             "data": {
                 NAME, EMAIL, PHONE, ADDRESS, CITY

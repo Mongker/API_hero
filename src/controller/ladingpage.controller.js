@@ -10,7 +10,6 @@ let getClientSettingGoogleSheet = async (req, res) => {
         items[itemIdsValue[0]] = itemIdsValue[1]
         return item;
     });
-    console.log('items', items); // MongLV log fix bug
 
     return res.render('index.html', {locals: items});
 };
