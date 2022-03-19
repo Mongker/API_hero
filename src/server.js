@@ -3,8 +3,8 @@ require('dotenv').config();
 // const express = require('express');
 const express = require('express');
 const es6Renderer = require('express-es6-template-engine');
-const path = require('path');
-// import morgan from 'morgan';
+// const path = require('path');
+const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -44,7 +44,7 @@ const corsOptions = {
 };
 
 // app.use(cors(corsOptions));
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
