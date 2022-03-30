@@ -130,6 +130,12 @@ a {
   right: 0;
   z-index: 9999;
 }
+.hotline-phone-ring-wrap-2 {
+  position: fixed;
+  bottom: 150px;
+  right: 0;
+  z-index: 9999;
+}
 .hotline-phone-ring-wrap:hover .hotline-bar {
   opacity: 1;
   width: 180px;
@@ -150,7 +156,21 @@ a {
   bottom: 0;
   display: block;
 }
-
+.hotline-phone-ring-1 {
+  position: relative;
+  visibility: visible;
+  background-color: transparent;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  z-index: 11;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transition: visibility 0.5s;
+  left: 0;
+  bottom: 0;
+  display: block;
+}
 .hotline-phone-ring-circle {
   width: 95px;
   height: 95px;
@@ -166,7 +186,21 @@ a {
   transform-origin: 50% 50%;
   opacity: 0.5;
 }
-
+.hotline-phone-ring-circle-1 {
+  width: 120px;
+  height: 120px;
+  top: 11px;
+  left: 11px;
+  position: absolute;
+  background-color: transparent;
+  border-radius: 100%;
+  border: 2px solid #013b34;
+  -webkit-animation: phonering-alo-circle-anim 1.2s infinite ease-in-out;
+  animation: phonering-alo-circle-anim 1.2s infinite ease-in-out;
+  transition: all 0.5s;
+  transform-origin: 50% 50%;
+  opacity: 0.5;
+}
 .hotline-phone-ring-circle-fill {
   width: 65px;
   height: 65px;
@@ -1904,3 +1938,32 @@ a {
     height: 30px;
   }
 }/*# sourceMappingURL=style.css.map */
+@-webkit-keyframes my {
+  0% { color: #fc0000; }
+  50% { color: #fa6a6a;  }
+  100% { color: #fc0000;  }
+}
+@-moz-keyframes my {
+  0% { color: #fc0000;  }
+  50% { color: #fa6a6a;  }
+  100% { color: #fc0000;  }
+}
+@-o-keyframes my {
+  0% { color: #fc0000; }
+  50% { color: #fa6a6a; }
+  100% { color: #fc0000;  }
+}
+@keyframes my {
+  0% { color: #fc0000;  }
+  50% { color: #fa6a6a;  }
+  100% { color: #fc0000;  }
+}
+.test {
+  background-color: transparent;
+  font-size:24px;
+  font-weight:bold;
+  -webkit-animation: my 700ms infinite;
+  -moz-animation: my 700ms infinite;
+  -o-animation: my 700ms infinite;
+  animation: my 700ms infinite;
+}

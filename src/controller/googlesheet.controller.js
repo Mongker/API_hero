@@ -48,9 +48,9 @@ let getClientGoogleSheet = async (req, res) => {
     })
     return res.json(items);
 };
-
 let addClientGoogleSheet = async (req, res) => {
     try {
+        await res.json({ message: 'SUCCESS' })
 
         let currentDate = new Date();
 
@@ -75,6 +75,7 @@ let addClientGoogleSheet = async (req, res) => {
         const {NAME, EMAIL, PHONE, ADDRESS, CITY} = req.body;
         const email = items.EMAIL ? items.EMAIL : 'levanmong.dola.99@gmail.com'
         const ngrok = items.URL_API ? items.URL_API : 'levanmong.dola.99@gmail.com'
+
         await sheet.addRow(
             {
                 "NAME": NAME,
@@ -84,14 +85,14 @@ let addClientGoogleSheet = async (req, res) => {
                 "ADDRESS":ADDRESS,
                 "CITY": CITY
             });
-        await axios.post(ngrok + '/api/sent-mail', {
+
+        await axios.post(ngrok + 'api/sent-mail', {
             "to": email,
             "subject": '[THÔNG BÁO] Có khách hàng mới',
             "data": {
                 NAME, EMAIL, PHONE, ADDRESS, CITY
             }
         })
-        return res.json({ message: 'SUCCESS' })
     }
     catch (e) {
         return res.json({ message: e })

@@ -43,6 +43,18 @@
         </a>
       </div>
     </div>
+    <div class="hotline-phone-ring-wrap-2">
+      <div class="hotline-phone-ring-1">
+        <div class="hotline-phone-ring-circle-1"></div>
+        <div class="hotline-phone-ring-circle-fill-1"></div>
+        <div class="hotline-phone-ring-img-circle">
+          <a href="#registration" class="test" style="color: red">Đăng ký ngay</a>
+        </div>
+      </div>
+      <div class="hotline-bar">
+        <a href="#registration" class="test" style="color: red">Đăng ký ngay</a>
+      </div>
+    </div>
     <div class="scrollTop">
       <div class="flex">
         <img class="img-fluid" src='assets/images/scroll.png' alt="" />
@@ -56,6 +68,7 @@
               <a href="#banner"><img title='LOGO' class="img-fluid imgLogo" src="${LOGO ? LOGO : 'assets/images/logo.png'}" alt="" />
                 <img title='LOGO' class="img-fluid imgLogoScroll" src="${LOGO ? LOGO : 'assets/images/logo.png'}" alt="" /></a>
             </h1>
+            <a href="#registration" class="test" style="color: red">Đăng ký ngay</a>
             <div class="toggleMenu">
               <span class="mobile_btn"></span>
             </div>
@@ -89,6 +102,62 @@
       <div class="video-container">
         <!-- <video width="100%" autoplay loop muted playsinline src="./assets/images/Voice_TVC 15s Kim Boi.mp4"></video> -->
         <img title='BANNER' class="img-fluid" src="${BANNER ? BANNER : 'assets/images/banner.jpg'}" alt="">
+      </div>
+    </section>
+    <section class="fw" id="registration">
+      <div class="row row_rev">
+        <div class="col-lg-6 pd0">
+          <img class="img-fluid" title='IMAGE_16' src='${IMAGE_16 ? IMAGE_16 : "assets/images/imgRes.jpg"}' alt="" />
+        </div>
+        <div class="col-lg-6 pd0 contentRegistration">
+          <h5 class="title coloreffect">
+            ĐĂNG KÝ NHẬN BẢNG GIÁ, CHÍNH SÁCH VÀ TIẾN ĐỘ DỰ ÁN
+          </h5>
+          <form method="POST">
+            <div class="row">
+              <div class="col-lg-6 formGroup">
+                <label for="">Họ và tên</label>
+                <input type="text" id="fullname" name="fullname" class="form-control" />
+              </div>
+              <!--              <div class="col-lg-6 formGroup">-->
+              <!--                <label for="">Email</label>-->
+              <!--                <input type="text" id="email" name="email" class="form-control" />-->
+              <!--              </div>-->
+              <div class="col-lg-6 formGroup">
+                <label for="">Số điện thoại</label>
+                <input type="text" id="phonenumber" name="phonenumber" class="form-control" />
+              </div>
+              <!--              <div class="col-lg-6 formGroup">-->
+              <!--                <label for="">Nơi sinh sống</label>-->
+              <!--                <input type="text" id="address" name="address" class="form-control" />-->
+              <!--              </div>-->
+              <!--              <div class="col-12 formGroup">-->
+              <!--                <label for="">Tỉnh thành</label>-->
+              <!--                <input type="text" id="province" name="province" class="form-control" />-->
+              <!--              </div>-->
+              <!-- <div class="col-12 formGroup">
+                <label for="">Sản phẩm quan tâm</label>
+                <select id="product">
+                  <option value="CĂN HỘ LA YÊN">
+                    CĂN HỘ LA YÊN
+                  </option>
+                  <option value="CĂN HỘ LA VÂN">
+                    CĂN HỘ LA VÂN
+                  </option>
+                  <option value="CĂN HỘ LA MINH">
+                    CĂN HỘ LA MINH
+                  </option>
+                </select>
+              </div> -->
+            </div>
+            <div class="btnSubmit btnStyle">
+              <button type="button" id="btnSubmit" onclick="sendEmail()">
+                Đăng ký ngay <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+            <p id="message"></p>
+          </form>
+        </div>
       </div>
     </section>
     <section class="fw" id="aboutUs">
@@ -1445,62 +1514,6 @@
         </div>
       </div>
     </section>
-    <section class="fw" id="registration">
-      <div class="row row_rev">
-        <div class="col-lg-6 pd0">
-          <img class="img-fluid" title='IMAGE_16' src='${IMAGE_16 ? IMAGE_16 : "assets/images/imgRes.jpg"}' alt="" />
-        </div>
-        <div class="col-lg-6 pd0 contentRegistration">
-          <h5 class="title coloreffect">
-            ĐĂNG KÝ NHẬN BẢNG GIÁ, CHÍNH SÁCH VÀ TIẾN ĐỘ DỰ ÁN
-          </h5>
-          <form method="POST">
-            <div class="row">
-              <div class="col-lg-6 formGroup">
-                <label for="">Họ và tên</label>
-                <input type="text" id="fullname" name="fullname" class="form-control" />
-              </div>
-              <div class="col-lg-6 formGroup">
-                <label for="">Email</label>
-                <input type="text" id="email" name="email" class="form-control" />
-              </div>
-              <div class="col-lg-6 formGroup">
-                <label for="">Số điện thoại</label>
-                <input type="text" id="phonenumber" name="phonenumber" class="form-control" />
-              </div>
-              <div class="col-lg-6 formGroup">
-                <label for="">Nơi sinh sống</label>
-                <input type="text" id="address" name="address" class="form-control" />
-              </div>
-              <div class="col-12 formGroup">
-                <label for="">Tỉnh thành</label>
-                <input type="text" id="province" name="province" class="form-control" />
-              </div>
-              <!-- <div class="col-12 formGroup">
-                <label for="">Sản phẩm quan tâm</label>
-                <select id="product">
-                  <option value="CĂN HỘ LA YÊN">
-                    CĂN HỘ LA YÊN
-                  </option>
-                  <option value="CĂN HỘ LA VÂN">
-                    CĂN HỘ LA VÂN
-                  </option>
-                  <option value="CĂN HỘ LA MINH">
-                    CĂN HỘ LA MINH
-                  </option>
-                </select>
-              </div> -->
-            </div>
-            <div class="btnSubmit btnStyle">
-              <button type="button" id="btnSubmit" onclick="sendEmail()">
-                Đăng ký ngay <i class="fas fa-arrow-right"></i>
-              </button>
-            </div>
-            <p id="message"></p>
-          </form>
-        </div>
-      </div>
-    </section>
 
     <footer class="fw" id="footer">
       <div class="container">
@@ -1524,7 +1537,7 @@
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">email</h6>
-            <p><i class="far fa-envelope"></i>@{EMAIL}</p>
+            <p><i class="far fa-envelope"></i>${EMAIL}</p>
           </div>
           <div class="col-xs-15 col-sm-15 col-md-15 col-lg-15 formCol">
             <h6 class="titleFooter">fanpage</h6>
@@ -1533,6 +1546,10 @@
         </div>
       </div>
     </footer>
+    <div style="position: absolute; top: -1000px; z-index: 1000; display: flex">
+      ${CHAT_SCRIPT ? CHAT_SCRIPT : ''}
+      ${ZALO_SCRIPT ? ZALO_SCRIPT : ''}
+    </div>
   </div>
   <script src='assets/js/jquery-3.5.1.min.js'></script>
   <script src='assets/js/bootstrap.min.js'></script>
@@ -1542,7 +1559,7 @@
   <script type="text/javascript">
     function sendEmail() {
       let host = window.location.origin;
-      let url = window.location.href;
+      // let url = window.location.href;
       let name = $("#fullname").val();
       if (name == "") {
         swal({
@@ -1555,26 +1572,26 @@
         name = $("#fullname").val();
       }
 
-      let email = $("#email").val();
-      let validateEmail =
-        /^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/;
-      if (email == "") {
-        swal({
-          title: "Vui lòng nhập email",
-          type: "error",
-          confirmButtonClass: "btn-danger",
-        });
-        return false;
-      } else if (!validateEmail.test(email)) {
-        swal({
-          title: "Email sai định dạng",
-          type: "error",
-          confirmButtonClass: "btn-danger",
-        });
-        return false;
-      } else {
-        email = $("#email").val();
-      }
+      // let email = $("#email").val();
+      // let validateEmail =
+      //   /^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/;
+      // if (email == "") {
+      //   swal({
+      //     title: "Vui lòng nhập email",
+      //     type: "error",
+      //     confirmButtonClass: "btn-danger",
+      //   });
+      //   return false;
+      // } else if (!validateEmail.test(email)) {
+      //   swal({
+      //     title: "Email sai định dạng",
+      //     type: "error",
+      //     confirmButtonClass: "btn-danger",
+      //   });
+      //   return false;
+      // } else {
+      //   email = $("#email").val();
+      // }
 
       let phone = $("#phonenumber").val();
       let validatePhone = /(84|0[3|5|7|8|9])+([0-9]{8})/g;
@@ -1596,29 +1613,29 @@
         phone = $("#phonenumber").val();
       }
 
-      let address = $("#address").val();
-      if (address == "") {
-        swal({
-          title: "Vui lòng nhập địa chỉ",
-          type: "error",
-          confirmButtonClass: "btn-danger",
-        });
-        return false;
-      } else {
-        address = $("#address").val();
-      }
-      let province = $("#province").val();
-      if (province == "") {
-        swal({
-          title: "Vui lòng điền tỉnh thành của bạn",
-          type: "error",
-          confirmButtonClass: "btn-danger",
-        });
-        return false;
-      } else {
-        province = $("#province").val();
-      }
-      var content = address;
+      // let address = $("#address").val();
+      // if (address == "") {
+      //   swal({
+      //     title: "Vui lòng nhập địa chỉ",
+      //     type: "error",
+      //     confirmButtonClass: "btn-danger",
+      //   });
+      //   return false;
+      // } else {
+      //   address = $("#address").val();
+      // }
+      // let province = $("#province").val();
+      // if (province == "") {
+      //   swal({
+      //     title: "Vui lòng điền tỉnh thành của bạn",
+      //     type: "error",
+      //     confirmButtonClass: "btn-danger",
+      //   });
+      //   return false;
+      // } else {
+      //   province = $("#province").val();
+      // }
+      // var content = address;
 
       $.ajax({
         type: "POST",
@@ -1626,20 +1643,13 @@
         // url: "http://13.213.59.212/api/send-email",
         // The key needs to match your method's input parameter (case-sensitive).
 
-        // data: JSON.stringify({
-        //   site: host,
-        //   NAME: name,
-        //   PHONE: phone,
-        //   EMAIL: email,
-        //   ADDRESS: content,
-        //   CITY: province,
-        // }),
         data: JSON.stringify({
-          NAME: 'MONG',
-          PHONE: '0374668113',
-          EMAIL: 'email@gmail.com',
-          ADDRESS: 'content',
-          CITY: 'province',
+          site: host,
+          NAME: name,
+          PHONE: phone,
+          EMAIL: '',
+          ADDRESS: '',
+          CITY: '',
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
