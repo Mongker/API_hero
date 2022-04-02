@@ -53,11 +53,11 @@ app.use(bodyParser.json());
 
 // Router
 app.use(sliderRouter);
-app.use(emailRouter);
-app.use('/api/file', uploadRouter);
-initGoogleSheetRoutes(app);
-initResourcesRoutes(app);
-initLandingPageRoutes(app)
+app.use(emailRouter); // api xử dụng gửi email theo yêu cầu
+app.use(uploadRouter); // Upload dữ liệu
+initGoogleSheetRoutes(app); // Thao tác với google sheet phần người dùng
+initResourcesRoutes(app); // Thư viện dữ liệu của Phúc
+initLandingPageRoutes(app); // Website của Phúc
 
 app.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);

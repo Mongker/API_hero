@@ -292,7 +292,7 @@ table, td { color: #000000; } a { color: #0000ee; text-decoration: underline; } 
 </html>
 `;
 const sendMail = (to, subject, data) => {
-    const {NAME, EMAIL, PHONE, ADDRESS, CITY} = data;
+    const { NAME, EMAIL, PHONE, ADDRESS, CITY } = data;
 
     // Khởi tạo một thằng transporter object sử dụng chuẩn giao thức truyền tải SMTP với các thông tin cấu hình ở trên.
     const transporter = nodeMailer.createTransport({
@@ -304,8 +304,6 @@ const sendMail = (to, subject, data) => {
             pass: adminPassword,
         },
     });
-
-
 
     const options = {
         from: adminEmail, // địa chỉ admin email bạn dùng để gửi

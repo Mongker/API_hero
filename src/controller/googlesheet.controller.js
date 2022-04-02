@@ -28,7 +28,12 @@ const clientGoogleSheet = async () => {
     await doc.loadInfo(); // loads document properties and worksheets
     return doc;
 }
-
+/**
+ * getClientGoogleSheet: Dùng để lấy danh sách khách hàng đã summit
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 let getClientGoogleSheet = async (req, res) => {
     let doc = await clientGoogleSheet();
     let sheet = doc.sheetsById[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
@@ -48,9 +53,15 @@ let getClientGoogleSheet = async (req, res) => {
     })
     return res.json(items);
 };
+
+/**
+ * addClientGoogleSheet: Dùng để thêm khách hàng vào cơ sở dữ liệu (google sheet)
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 let addClientGoogleSheet = async (req, res) => {
     try {
-        await res.json({ message: 'SUCCESS' })
 
         let currentDate = new Date();
 

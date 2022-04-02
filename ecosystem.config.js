@@ -1,10 +1,9 @@
 module.exports = {
     apps: [
         {
-            name: 'vnr-next',
-            script: 'node src/server.js',
-            max_memory_restart: '300M',
+            name: 'base-api',
+            script: 'npm run start',
+            max_memory_restart: '250M',
         },
     ],
 };
-
