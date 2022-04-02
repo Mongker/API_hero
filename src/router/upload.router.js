@@ -18,22 +18,22 @@ function getMaxId() {
 const imageUploader = multer({ dest: './images/' });
 uploadRouter.post('/api/file/upload', imageUploader.single('file'), (req, res) => {
     const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
-    const {_name} = req.body;
+    const { name_key } = req.body;
     const d = new Date();
     let year = d.getFullYear();
     let day = d.getDate();
     let month = d.getMonth() + 1;
-    const name = _name || 'public'
-    const pathFolder = `./images/${day}-${month}-${year}`
+    const name = name_key || 'public';
+    const pathFolder = `./images/${name}`;
     try {
-        if (!fs.existsSync(pathFolder)){
-            fs.mkdirSync(pathFolder)
+        if (!fs.existsSync(pathFolder)) {
+            fs.mkdirSync(pathFolder);
         }
-        if (!fs.existsSync(pathFolder + `/${name}`)){
-            fs.mkdirSync(pathFolder + `/${name}`)
+        if (!fs.existsSync(pathFolder + `/${day}-${month}-${year}`)) {
+            fs.mkdirSync(pathFolder + `/${day}-${month}-${year}`);
         }
     } catch (err) {
-        console.error(err)
+        console.error(err);
     }
     let orgName = processedFile.originalname || ''; // Tên gốc trong máy tính của người upload
     orgName = orgName.trim().replace(/ /g, '-');
@@ -41,7 +41,7 @@ uploadRouter.post('/api/file/upload', imageUploader.single('file'), (req, res) =
     // Đổi tên của file vừa upload lên, vì multer đang đặt default ko có đuôi file
     // const newFullPath = `${fullPathInServ}-${orgName}`;
     const link_img = `${getMaxId()}-${orgName.replace(//g, '').replace(/�/g, '').replace(/ /g, '')}`;
-    const newFullPathUbuntu = `images/${day}-${month}-${year}/${name}/${link_img}`; // Ubuntu
+    const newFullPathUbuntu = `images/${name}/${day}-${month}-${year}/${link_img}`; // Ubuntu
     // const newFullPathWin = `images\\`+link_img; // Win 10
     fs.renameSync(fullPathInServ, newFullPathUbuntu);
     res.json({
@@ -52,7 +52,7 @@ uploadRouter.post('/api/file/upload', imageUploader.single('file'), (req, res) =
 });
 
 uploadRouter.get('/api/file/:name/:date/:nameFile', (req, res) => {
-    const {name, date, nameFile} = req.params;
+    const { name, date, nameFile } = req.params;
     if (!name && !date && !nameFile) {
         return res.send({
             status: false,
