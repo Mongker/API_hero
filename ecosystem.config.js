@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'base-api',
-            script: 'npm run start',
+            script: 'node src/server',
             max_memory_restart: '250M',
         },
     ],
