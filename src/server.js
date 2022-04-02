@@ -12,11 +12,11 @@ const mongoose = require('mongoose');
 
 // Router
 const sliderRouter = require('./router/slider.router');
-const uploadRouter = require('./router/upload.router');
 const emailRouter = require('./router/email.router');
 const initGoogleSheetRoutes = require('./router/googlesheet.router');
 const initResourcesRoutes = require('./router/resources.router');
 const initLandingPageRoutes = require('./router/ladipage.router');
+const initUploadFileRoutes = require('./router/uploadFile.router');
 
 // DATA
 const port = process.env.PORT || 1999;
@@ -54,10 +54,10 @@ app.use(bodyParser.json());
 // Router
 app.use(sliderRouter);
 app.use(emailRouter); // api xử dụng gửi email theo yêu cầu
-app.use(uploadRouter); // Upload dữ liệu
 initGoogleSheetRoutes(app); // Thao tác với google sheet phần người dùng
-initResourcesRoutes(app); // Thư viện dữ liệu của Phúc
+initResourcesRoutes(app); // Thư viện dữ liệu website của Phúc
 initLandingPageRoutes(app); // Website của Phúc
+initUploadFileRoutes(app); // Xử lý hình ảnh
 
 app.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);
