@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const { Worker } =  require('worker_threads');
+const { Worker } = require('worker_threads');
 const resize = require('../utils/function/resize');
+const sentHTMLImage = require('../utils/function/sentHTMLImage');
+const url = require('url');
+const http = require('http');
 
 function getMaxId() {
     let max = '';
@@ -13,7 +16,7 @@ function getMaxId() {
 }
 let sentFile = async (req, res) => {
     const processedFile = req.file; // MULTER xử lý và gắn đối tượng FILE vào req
-    if(!processedFile) {
+    if (!processedFile) {
         return res.json({
             status: false,
             message: 'need to send files',
@@ -55,50 +58,61 @@ let sentFile = async (req, res) => {
         message: 'file uploaded',
         fileNameInServer: newFullPathUbuntu.replace('images/', ''),
     });
-}
+};
 
 let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
-    const {width, show} = req.query;
-    if (!name && !date && !nameFile) {
-        return await res.send({
-            status: false,
-            message: 'no filename specified',
-        });
-    }
-    const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`)
-    if(show) {
-        return res.sendFile(pathFile);
+    const originalUrl = req.originalUrl ? req.originalUrl : '';
+    const host = req.get('host') ? req.get('host') : '';
+    const urlPost = 'http' + host + originalUrl + '?width=500&review_link=true';
+    const idsUrl = originalUrl.split('/');
+    console.log('req', req); // MongLV log fix bug
+
+    if (idsUrl.length === 6 && idsUrl[1] === 'api' && idsUrl[2] === 'file' && !urlPost.endsWith('?width=500&review_link=true')) {
+        return await res.send(sentHTMLImage(nameFile, urlPost));
     } else {
-        const worker =  new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
-            workerData: { pathFile: pathFile, width: Number(width), format: 'webp', name: nameFile }
-        });
-        let sentPath = {
-            name: pathFile,
+        console.log('123', 123); // MongLV log fix bug
+        const { width, show } = req.query;
+        if (!name && !date && !nameFile) {
+            return await res.send({
+                status: false,
+                message: 'no filename specified',
+            });
         }
-        await worker.once("message", async result => {
-            console.log('result', result); // MongLV log fix bug
-            sentPath.name = await path.resolve('./' + result);
-            if (!fs.existsSync(path.resolve(sentPath.name))) {
-                console.log('123', pathFile); // MongLV log fix bug
-                return await resize(pathFile, 'webp', Number(width)).pipe(res);
-            } else {
-                console.log('456', sentPath.name); // MongLV log fix bug
-                return await res.sendFile(sentPath.name);
-            }
-        });
+        const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
+        if (show) {
+            return res.sendFile(pathFile);
+        } else {
+            const worker = new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
+                workerData: { pathFile: pathFile, width: Number(width), format: 'webp', name: nameFile },
+            });
+            let sentPath = {
+                name: pathFile,
+            };
+            await worker.once('message', async (result) => {
+                console.log('result', result); // MongLV log fix bug
+                sentPath.name = await path.resolve('./' + result);
+                if (!fs.existsSync(path.resolve(sentPath.name))) {
+                    console.log('123', pathFile); // MongLV log fix bug
+                    return await resize(pathFile, 'webp', Number(width)).pipe(res);
+                } else {
+                    console.log('456', sentPath.name); // MongLV log fix bug
+                    return await res.sendFile(sentPath.name);
+                }
+            });
 
-        await worker.on("error", error => {
-            console.log('error', error);
-        });
+            await worker.on('error', (error) => {
+                console.log('error', error);
+            });
 
-        await worker.on("exit", exitCode => {
-            console.log('exitCode', exitCode);
-        })
+            await worker.on('exit', (exitCode) => {
+                console.log('exitCode', exitCode);
+            });
+        }
     }
-}
+};
 
 module.exports = {
     sentFile,
     getFile,
-}
+};
