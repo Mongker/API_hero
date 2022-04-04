@@ -64,14 +64,14 @@ let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
     const originalUrl = req.originalUrl ? req.originalUrl : '';
     const host = req.get('host') ? req.get('host') : '';
-    const urlPost = 'http' + host + originalUrl + '?width=500&review_link=true';
+    let urlPost = 'http' + host + originalUrl;
     const idsUrl = originalUrl.split('/');
-    console.log('req', req); // MongLV log fix bug
 
     if (idsUrl.length === 6 && idsUrl[1] === 'api' && idsUrl[2] === 'file' && !urlPost.endsWith('?width=500&review_link=true')) {
+        urlPost = '?width=500&review_link=true';
+        console.log('urlPost', urlPost); // MongLV log fix bug
         return await res.send(sentHTMLImage(nameFile, urlPost));
     } else {
-        console.log('123', 123); // MongLV log fix bug
         const { width, show } = req.query;
         if (!name && !date && !nameFile) {
             return await res.send({
