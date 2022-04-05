@@ -62,19 +62,22 @@ let sentFile = async (req, res) => {
 
 let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
-    const originalUrl = req.originalUrl ? req.originalUrl : '';
-    const host = req.get('host') ? req.get('host') : '';
-    let urlPost = 'http' + host + originalUrl;
-    const idsUrl = originalUrl.split('/');
 
     const { width, show } = req.query;
+    const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
+
+    if (!fs.existsSync(pathFile)) {
+        return await res.send({
+            status: false,
+            message: '4040 (find not file)',
+        });
+    }
     if (!name && !date && !nameFile) {
         return await res.send({
             status: false,
             message: 'no filename specified',
         });
     }
-    const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
     if (show) {
         return res.sendFile(pathFile);
     } else {
