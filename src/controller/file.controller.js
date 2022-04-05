@@ -67,48 +67,39 @@ let getFile = async (req, res) => {
     let urlPost = 'http' + host + originalUrl;
     const idsUrl = originalUrl.split('/');
 
-    if (idsUrl.length === 6 && idsUrl[1] === 'api' && idsUrl[2] === 'file' && !urlPost.endsWith('?width=500&review_link=true')) {
-        urlPost = '?width=500&review_link=true';
-        console.log('urlPost', urlPost); // MongLV log fix bug
-        return await res.send(sentHTMLImage(nameFile, urlPost));
+    const { width, show } = req.query;
+    if (!name && !date && !nameFile) {
+        return await res.send({
+            status: false,
+            message: 'no filename specified',
+        });
+    }
+    const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
+    if (show) {
+        return res.sendFile(pathFile);
     } else {
-        const { width, show } = req.query;
-        if (!name && !date && !nameFile) {
-            return await res.send({
-                status: false,
-                message: 'no filename specified',
-            });
-        }
-        const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
-        if (show) {
-            return res.sendFile(pathFile);
-        } else {
-            const worker = new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
-                workerData: { pathFile: pathFile, width: Number(width), format: 'webp', name: nameFile },
-            });
-            let sentPath = {
-                name: pathFile,
-            };
-            await worker.once('message', async (result) => {
-                console.log('result', result); // MongLV log fix bug
-                sentPath.name = await path.resolve('./' + result);
-                if (!fs.existsSync(path.resolve(sentPath.name))) {
-                    console.log('123', pathFile); // MongLV log fix bug
-                    return await resize(pathFile, 'webp', Number(width)).pipe(res);
-                } else {
-                    console.log('456', sentPath.name); // MongLV log fix bug
-                    return await res.sendFile(sentPath.name);
-                }
-            });
+        const worker = new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
+            workerData: { pathFile: pathFile, width: Number(width), format: 'webp', name: nameFile },
+        });
+        let sentPath = {
+            name: pathFile,
+        };
+        await worker.once('message', async (result) => {
+            sentPath.name = await path.resolve('./' + result);
+            if (!fs.existsSync(path.resolve(sentPath.name))) {
+                return await resize(pathFile, 'webp', Number(width)).pipe(res);
+            } else {
+                return await res.sendFile(sentPath.name);
+            }
+        });
 
-            await worker.on('error', (error) => {
-                console.log('error', error);
-            });
+        await worker.on('error', (error) => {
+            console.log('error', error);
+        });
 
-            await worker.on('exit', (exitCode) => {
-                console.log('exitCode', exitCode);
-            });
-        }
+        await worker.on('exit', (exitCode) => {
+            console.log('exitCode', exitCode);
+        });
     }
 };
 
