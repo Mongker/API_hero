@@ -65,7 +65,7 @@ let getFile = async (req, res) => {
     const { width, show } = req.query;
     const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
     const idsNameFile = nameFile.split('.');
-    const typeFile = idsNameFile[idsNameFile - 1];
+    const typeFile = idsNameFile[idsNameFile.length - 1];
 
     if (!fs.existsSync(pathFile)) {
         return await res.send({
