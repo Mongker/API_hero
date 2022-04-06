@@ -2,9 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { Worker } = require('worker_threads');
 const resize = require('../utils/function/resize');
-const sentHTMLImage = require('../utils/function/sentHTMLImage');
-const url = require('url');
-const http = require('http');
 
 function getMaxId() {
     let max = '';
@@ -14,6 +11,7 @@ function getMaxId() {
     }
     return `${max}`;
 }
+
 let sentFile = async (req, res) => {
     const processedFile = req.file; // MULTER xử lý và gắn đối tượng FILE vào req
     if (!processedFile) {
@@ -60,11 +58,14 @@ let sentFile = async (req, res) => {
     });
 };
 
+const TYPE_IMAGE = ['png', 'gif', 'jpeg', 'jpg', 'webp'];
 let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
 
     const { width, show } = req.query;
     const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
+    const idsNameFile = nameFile.split('.');
+    const typeFile = idsNameFile[idsNameFile - 1];
 
     if (!fs.existsSync(pathFile)) {
         return await res.send({
@@ -78,7 +79,7 @@ let getFile = async (req, res) => {
             message: 'no filename specified',
         });
     }
-    if (show) {
+    if (show || !TYPE_IMAGE.includes(typeFile)) {
         return res.sendFile(pathFile);
     } else {
         const worker = new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
