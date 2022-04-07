@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { Worker } = require('worker_threads');
 const resize = require('../utils/function/resize');
+const axios = require('axios');
 
 function getMaxId() {
     let max = '';
@@ -43,19 +44,29 @@ let sentFile = async (req, res) => {
         console.error(err);
     }
     let orgName = processedFile.originalname || ''; // Tên gốc trong máy tính của người upload
+    console.log('processedFile', processedFile); // MongLV log fix bug
     orgName = orgName.trim().replace(/ /g, '-');
     const fullPathInServ = processedFile.path; // Đường dẫn đầy đủ của file vừa đc upload lên server
     // Đổi tên của file vừa upload lên, vì multer đang đặt default ko có đuôi file
     // const newFullPath = `${fullPathInServ}-${orgName}`;
-    const link_img = `${getMaxId()}-${orgName.replace(//g, '').replace(/�/g, '').replace(/ /g, '')}`;
-    const newFullPathUbuntu = `images/${name}/${day}-${month}-${year}/${link_img}`; // Ubuntu
+    const idsNameFile = orgName.split('.');
+    const typeFile = idsNameFile[idsNameFile.length - 1];
+    const link_img = `${getMaxId()}-${getMaxId()}`;
+    const newFullPathUbuntu = `images/${name}/${day}-${month}-${year}/${link_img}.${typeFile}`; // Ubuntu
     // const newFullPathWin = `images\\`+link_img; // Win 10
     fs.renameSync(fullPathInServ, newFullPathUbuntu);
-    return res.json({
+    const pathUrl = newFullPathUbuntu.replace('images/', '');
+    await res.json({
         status: true,
         message: 'file uploaded',
-        fileNameInServer: newFullPathUbuntu.replace('images/', ''),
+        fileNameInServer: '/api/file/' + pathUrl,
     });
+    await axios.post(process.env.URL_BASE + '/api/file-info', {
+        "folder": name,
+        "url": "/api/file/" + pathUrl,
+        "fileName": link_img,
+        "size": processedFile.size | 0
+    })
 };
 
 const TYPE_IMAGE = ['png', 'gif', 'jpeg', 'jpg', 'webp'];
@@ -66,6 +77,7 @@ let getFile = async (req, res) => {
     const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
     const idsNameFile = nameFile.split('.');
     const typeFile = idsNameFile[idsNameFile.length - 1];
+    const _nameFile = idsNameFile[0];
 
     if (!fs.existsSync(pathFile)) {
         return await res.send({
@@ -79,30 +91,35 @@ let getFile = async (req, res) => {
             message: 'no filename specified',
         });
     }
+    await axios.put(process.env.URL_BASE + `/api/file-info/${_nameFile}`, {})
+    let sentPath = {
+        name: pathFile,
+    };
+    let outputPath  = `images/webp/${nameFile}.webp`;
+    width && (outputPath  = `images/webp/${nameFile}__width_${width}.webp`);
     if (show || !TYPE_IMAGE.includes(typeFile)) {
         return res.sendFile(pathFile);
+    } else if (!fs.existsSync(path.resolve(outputPath))) {
+        return await resize(pathFile, 'webp', Number(width)).pipe(res);
     } else {
         const worker = new Worker(path.resolve('./src/utils/function/resizeImage.js'), {
             workerData: { pathFile: pathFile, width: Number(width), format: 'webp', name: nameFile },
         });
-        let sentPath = {
-            name: pathFile,
-        };
+
+        let onSent = false;
         await worker.once('message', async (result) => {
             sentPath.name = await path.resolve('./' + result);
-            if (!fs.existsSync(path.resolve(sentPath.name))) {
-                return await resize(pathFile, 'webp', Number(width)).pipe(res);
-            } else {
-                return await res.sendFile(sentPath.name);
-            }
+            console.log('sentPath.name', sentPath.name); // MongLV log fix bug
+            return await res.sendFile(sentPath.name);
         });
 
         await worker.on('error', (error) => {
-            console.log('error', error);
+            onSent = true;
+            console.log('error', error); // MongLV log fix bug
         });
 
         await worker.on('exit', (exitCode) => {
-            console.log('exitCode', exitCode);
+            !!onSent && resize(pathFile, 'webp', Number(width)).pipe(res);
         });
     }
 };

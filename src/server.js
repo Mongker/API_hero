@@ -2,13 +2,13 @@ require('dotenv').config();
 // server.js
 // const express = require('express');
 const express = require('express');
-const es6Renderer = require('express-es6-template-engine');
-const path = require('path');
+// const es6Renderer = require('express-es6-template-engine');
+// const path = require('path');
 const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 // Router
 const sliderRouter = require('./router/slider.router');
@@ -22,21 +22,21 @@ const initUploadFileRoutes = require('./router/uploadFile.router');
 const port = process.env.PORT || 1999;
 
 // option mongoose
-mongoose.set('useFindAndModify', false);
-mongoose.connect(process.env.URL_DBOnline, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
-    () => {
-        console.log('Database is connected');
-    },
-    (err) => {
-        console.log('Can not connect to the database ' + err);
-    },
-);
+// mongoose.set('useFindAndModify', false);
+// mongoose.connect(process.env.URL_DBOnline, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
+//     () => {
+//         console.log('Database is connected');
+//     },
+//     (err) => {
+//         console.log('Can not connect to the database ' + err);
+//     },
+// );
 
 // engine
-app.set('view engine', 'html');
-app.engine('html', es6Renderer);
-app.set('views', path.join(__dirname, 'views/apecmandalakimboi.apecgroup.net'));
-app.set('view engine', 'html');
+// app.set('view engine', 'html');
+// app.engine('html', es6Renderer);
+// app.set('views', path.join(__dirname, 'views/apecmandalakimboi.apecgroup.net'));
+// app.set('view engine', 'html');
 
 const corsOptions = {
     origin: 'http://localhost:3000',
