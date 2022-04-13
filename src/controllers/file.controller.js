@@ -3,6 +3,7 @@ const path = require('path');
 const { Worker } = require('worker_threads');
 const resize = require('../utils/function/resize');
 const axios = require('axios');
+const db = require('../database/db');
 
 function getMaxId() {
     let max = '';
@@ -15,18 +16,19 @@ function getMaxId() {
 
 let sentFile = async (req, res) => {
     const processedFile = req.file; // MULTER xử lý và gắn đối tượng FILE vào req
+    const idsViewString = req?.query?.idsView || '[]'
+    const idsView = JSON.parse(idsViewString);
     if (!processedFile) {
         return res.json({
             status: false,
             message: 'need to send files',
         });
     }
-    const { name_key } = req.body;
     const d = new Date();
     let year = d.getFullYear();
     let day = d.getDate();
     let month = d.getMonth() + 1;
-    const name = name_key || 'public';
+    const name = req?.jwtDecoded?.data?.id || 'public';
     const pathFolder = `./images/${name}`;
     try {
         if (!fs.existsSync(pathFolder)) {
@@ -44,7 +46,6 @@ let sentFile = async (req, res) => {
         console.error(err);
     }
     let orgName = processedFile.originalname || ''; // Tên gốc trong máy tính của người upload
-    console.log('processedFile', processedFile); // MongLV log fix bug
     orgName = orgName.trim().replace(/ /g, '-');
     const fullPathInServ = processedFile.path; // Đường dẫn đầy đủ của file vừa đc upload lên server
     // Đổi tên của file vừa upload lên, vì multer đang đặt default ko có đuôi file
@@ -65,16 +66,31 @@ let sentFile = async (req, res) => {
         "folder": name,
         "url": "/api/file/" + pathUrl,
         "fileName": link_img,
-        "size": processedFile.size | 0
+        "size": processedFile.size | 0,
+        "idsView": [name, ...idsView]
     })
 };
 
 const TYPE_IMAGE = ['png', 'gif', 'jpeg', 'jpg', 'webp'];
+
 let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
+    let _name = name || 'public'
 
+    if(_name !== 'public') {
+        const id = req?.jwtDecoded?.data?.id;
+        const file_db = await db.get('file').find({ url: req.path }).value();
+        console.log('file_db.idsView', file_db.idsView); // MongLV log fix bug
+        console.log('id', id); // MongLV log fix bug
+        if(!(Array.isArray(file_db.idsView) && file_db.idsView.includes(id))) {
+            return await res.status(403).send({
+                status: false,
+                message: '403',
+            });
+        }
+    }
     const { width, show } = req.query;
-    const pathFile = path.resolve(`./images/${name}/${date}/${nameFile}`);
+    const pathFile = path.resolve(`./images/${_name}/${date}/${nameFile}`);
     const idsNameFile = nameFile.split('.');
     const typeFile = idsNameFile[idsNameFile.length - 1];
     const _nameFile = idsNameFile[0];
@@ -85,7 +101,7 @@ let getFile = async (req, res) => {
             message: '4040 (find not file)',
         });
     }
-    if (!name && !date && !nameFile) {
+    if (!_name && !date && !nameFile) {
         return await res.send({
             status: false,
             message: 'no filename specified',
@@ -109,7 +125,6 @@ let getFile = async (req, res) => {
         let onSent = false;
         await worker.once('message', async (result) => {
             sentPath.name = await path.resolve('./' + result);
-            console.log('sentPath.name', sentPath.name); // MongLV log fix bug
             return await res.sendFile(sentPath.name);
         });
 

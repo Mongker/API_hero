@@ -1,7 +1,7 @@
 const express = require('express');
 
 //controller
-const { sendMail } = require('../controller/email.controller');
+const { sendMail } = require('../controllers/email.controller');
 
 // const
 const sliderRouter = express.Router();

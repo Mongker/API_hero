@@ -10,14 +10,7 @@
 'use strict'
 
 const db = require('../database/db');
-function generateUUID() {
-    let d = new Date().getTime();
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-    });
-}
+const generateUUID = require('../utils/function/generateUUID');
 
 module.exports = {
     get: (req, res) => {
@@ -41,6 +34,7 @@ module.exports = {
             "url":  req.body.url || "",
             "timestamps": new Date().getTime(),
             "visit_timestamps": new Date().getTime(),
+            "idsView": req.body.idsView,
         };
         db.get('file').push(obj).write();
         res.json({message: 'Post Insert success!'})

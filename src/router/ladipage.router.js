@@ -1,5 +1,5 @@
 const express = require('express');
-const ladingpageController = require('../controller/ladingpage.controller');
+const ladingpageController = require('../controllers/ladingpage.controller');
 let router = express.Router();
 
 let initLandingPageRoutes = (app) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const homepageController = require('../controller/googlesheet.controller');
+const homepageController = require('../controllers/googlesheet.controller');
 
 let router = express.Router();
 

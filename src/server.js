@@ -1,6 +1,4 @@
 require('dotenv').config();
-// server.js
-// const express = require('express');
 const express = require('express');
 // const es6Renderer = require('express-es6-template-engine');
 // const path = require('path');
@@ -8,15 +6,20 @@ const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const http = require('http');
+
 // const mongoose = require('mongoose');
 
 // Router
-const sliderRouter = require('./router/slider.router');
+// const sliderRouter = require('./router/slider.router');
 const emailRouter = require('./router/email.router');
 const initGoogleSheetRoutes = require('./router/googlesheet.router');
 const initResourcesRoutes = require('./router/resources.router');
 const initLandingPageRoutes = require('./router/ladipage.router');
 const initUploadFileRoutes = require('./router/uploadFile.router');
+const initChatRoutes = require('./router/chat.router');
+const initRocketRoutes = require('./router/rocketIo.router');
+const initAuthRouter = require('./router/auth.router');
 
 // DATA
 const port = process.env.PORT || 1999;
@@ -43,6 +46,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
+
 // app.use(cors(corsOptions));
 app.use(morgan('combined'));
 app.use(cors());
@@ -50,15 +54,19 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+const server = http.createServer(app);
 
 // Router
-app.use(sliderRouter);
+// app.use(sliderRouter);
 app.use(emailRouter); // api xử dụng gửi email theo yêu cầu
 initGoogleSheetRoutes(app); // Thao tác với google sheet phần người dùng
 initResourcesRoutes(app); // Thư viện dữ liệu website của Phúc
 initLandingPageRoutes(app); // Website của Phúc
 initUploadFileRoutes(app); // Xử lý hình ảnh
+initChatRoutes(app); // Chat theo thời gian thực
+initAuthRouter(app); // Xử lý nghiệp vụ tải khoản và check tải khoản
+initRocketRoutes(server); // Xử lý roketIO
 
-app.listen(port, function () {
+server.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);
 });

@@ -22,9 +22,7 @@ async function resizeImage() {
                 transform = transform.toFormat(format);
             }
             if (width) {
-                console.log('width', typeof width); // MongLV log fix bug
                 transform = transform.resize({width: width, fit: 'cover'});
-                console.log(outputPath)
             }
 
             transform.toFile(outputPath);
@@ -32,7 +30,6 @@ async function resizeImage() {
             //readStream.pipe(transform)
             return parentPort.postMessage(outputPath);
         }
-
     }
 
 }

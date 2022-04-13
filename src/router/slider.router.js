@@ -1,7 +1,7 @@
 const express = require('express');
 
 //controller
-const {GET, POST, DELETE, UPDATE} = require('../controller/slider.controller');
+const {GET, POST, DELETE, UPDATE} = require('../controllers/slider.controller');
 
 // const
 const sliderRouter = express.Router();
