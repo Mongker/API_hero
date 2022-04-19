@@ -62,9 +62,10 @@ let sentFile = async (req, res) => {
         message: 'file uploaded',
         fileNameInServer: '/api/file/' + pathUrl,
     });
+    const path = name === 'public' ? '/api/file-public/' : '/api/file/'
     await axios.post(process.env.URL_BASE + '/api/file-info', {
         "folder": name,
-        "url": "/api/file/" + pathUrl,
+        "url": path + pathUrl,
         "fileName": link_img,
         "size": processedFile.size | 0,
         "idsView": [name, ...idsView]
@@ -80,8 +81,6 @@ let getFile = async (req, res) => {
     if(_name !== 'public') {
         const id = req?.jwtDecoded?.data?.id;
         const file_db = await db.get('file').find({ url: req.path }).value();
-        console.log('file_db.idsView', file_db.idsView); // MongLV log fix bug
-        console.log('id', id); // MongLV log fix bug
         if(!(Array.isArray(file_db.idsView) && file_db.idsView.includes(id))) {
             return await res.status(403).send({
                 status: false,
@@ -98,7 +97,7 @@ let getFile = async (req, res) => {
     if (!fs.existsSync(pathFile)) {
         return await res.send({
             status: false,
-            message: '4040 (find not file)',
+            message: '404 (find not file)',
         });
     }
     if (!_name && !date && !nameFile) {

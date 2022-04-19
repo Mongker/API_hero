@@ -5,8 +5,8 @@ let router = express.Router();
 
 let initGoogleSheetRoutes = (app) => {
     router.route('/api/google_sheet/client')
-    .get(homepageController.getClientGoogleSheet)
-    .post(homepageController.addClientGoogleSheet);
+    .post(homepageController.addClientGoogleSheet).get(homepageController.getClientGoogleSheet);
+    router.route('/api/google_sheet/client/:id').get(homepageController.getClientGoogleSheet)
     return app.use(router);
 };
 

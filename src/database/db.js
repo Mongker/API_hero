@@ -7,10 +7,11 @@
  * @university: UTT (Đại học Công Nghệ Giao Thông Vận Tải)
  */
 
-const low = require('lowdb')
+const low = require('lowdb');
+
 // thư viện lowdb
 const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('./src/database/db.json');
+const adapter = new FileSync('./src/database/database.json');
 const db = low(adapter);
 db.defaults({file: [], message: [], hasMessage: [], users: []}).write();
 

@@ -11,7 +11,7 @@ let getClientSettingGoogleSheet = async (req, res) => {
         return item;
     });
 
-    return res.render('index.html', {locals: items});
+    return res.json({locals: items});
 };
 let postSuccess = async (req, res) => {
     return res.render('thank-you');

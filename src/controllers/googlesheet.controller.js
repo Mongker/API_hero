@@ -35,23 +35,35 @@ const clientGoogleSheet = async () => {
  * @returns {Promise<*>}
  */
 let getClientGoogleSheet = async (req, res) => {
+    const id = req.params.id || 0;
+    console.log('id', id); // MongLV log fix bug
     let doc = await clientGoogleSheet();
-    let sheet = doc.sheetsById[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+    let sheet = doc.sheetsById[Number(id)]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
     let rows = await sheet.getRows(); // can pass in { limit, offset }
     const items = {};
-    await rows.map((item) => {
-        const itemIdsKey = item._sheet.headerValues;
-        const itemIdsValue = item._rawData;
-        items[itemIdsValue[2]] = {
-            [itemIdsKey[0]]: itemIdsValue[0],
-            [itemIdsKey[1]]: itemIdsValue[1],
-            [itemIdsKey[2]]: itemIdsValue[2],
-            [itemIdsKey[3]]: itemIdsValue[3],
-            [itemIdsKey[4]]: itemIdsValue[4],
-        };
-        return (item)
-    })
-    return res.json(items);
+
+    if(id !== 0) {
+        await rows.map((item) => {
+            const itemIdsValue = item._rawData;
+            items[itemIdsValue[0]] = itemIdsValue[1]
+            return item;
+        });
+    } else {
+        await rows.map((item) => {
+            const itemIdsKey = item._sheet.headerValues;
+            const itemIdsValue = item._rawData;
+            items[itemIdsValue[2]] = {
+                [itemIdsKey[0]]: itemIdsValue[0],
+                [itemIdsKey[1]]: itemIdsValue[1],
+                [itemIdsKey[2]]: itemIdsValue[2],
+                [itemIdsKey[3]]: itemIdsValue[3],
+                [itemIdsKey[4]]: itemIdsValue[4],
+            };
+            return (item)
+        })
+    }
+
+    return await res.json(items);
 };
 
 /**

@@ -7,6 +7,7 @@
 .pnp.js
 .idea
 /src/database/db.json
+/src/database/database.json
 
 # testing
 /coverage
