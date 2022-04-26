@@ -58,14 +58,17 @@ const server = http.createServer(app);
 
 // Router
 // app.use(sliderRouter);
+initRocketRoutes(server); // Xử lý roketIO
 app.use(emailRouter); // api xử dụng gửi email theo yêu cầu
 initGoogleSheetRoutes(app); // Thao tác với google sheet phần người dùng
-initResourcesRoutes(app); // Thư viện dữ liệu website của Phúc
 initLandingPageRoutes(app); // Website của Phúc
 initUploadFileRoutes(app); // Xử lý hình ảnh
 initChatRoutes(app); // Chat theo thời gian thực
 initAuthRouter(app); // Xử lý nghiệp vụ tải khoản và check tải khoản
-initRocketRoutes(server); // Xử lý roketIO
+
+// Thư viện dữ liệu website của KH Phúc
+initResourcesRoutes(app);
+
 
 server.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);
