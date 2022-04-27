@@ -16,7 +16,7 @@ function getMaxId() {
 
 let sentFile = async (req, res) => {
     const processedFile = req.file; // MULTER xử lý và gắn đối tượng FILE vào req
-    const idsViewString = req?.query?.idsView || '[]'
+    const idsViewString = req?.query?.idsView || '[]';
     const idsView = JSON.parse(idsViewString);
     if (!processedFile) {
         return res.json({
@@ -57,31 +57,32 @@ let sentFile = async (req, res) => {
     // const newFullPathWin = `images\\`+link_img; // Win 10
     fs.renameSync(fullPathInServ, newFullPathUbuntu);
     const pathUrl = newFullPathUbuntu.replace('images/', '');
+    const path = name === 'public' ? '/api/file-public/' : '/api/file/';
+
     await res.json({
         status: true,
         message: 'file uploaded',
-        fileNameInServer: '/api/file/' + pathUrl,
+        fileNameInServer: path + pathUrl,
     });
-    const path = name === 'public' ? '/api/file-public/' : '/api/file/'
     await axios.post(process.env.URL_BASE + '/api/file-info', {
-        "folder": name,
-        "url": path + pathUrl,
-        "fileName": link_img,
-        "size": processedFile.size | 0,
-        "idsView": [name, ...idsView]
-    })
+        folder: name,
+        url: path + pathUrl,
+        fileName: link_img,
+        size: processedFile.size | 0,
+        idsView: [name, ...idsView],
+    });
 };
 
 const TYPE_IMAGE = ['png', 'gif', 'jpeg', 'jpg', 'webp'];
 
 let getFile = async (req, res) => {
     const { name, date, nameFile } = req.params;
-    let _name = name || 'public'
+    let _name = name || 'public';
 
-    if(_name !== 'public') {
+    if (_name !== 'public') {
         const id = req?.jwtDecoded?.data?.id;
         const file_db = await db.get('file').find({ url: req.path }).value();
-        if(!(Array.isArray(file_db.idsView) && file_db.idsView.includes(id))) {
+        if (!(Array.isArray(file_db.idsView) && file_db.idsView.includes(id))) {
             return await res.status(403).send({
                 status: false,
                 message: '403',
@@ -106,12 +107,12 @@ let getFile = async (req, res) => {
             message: 'no filename specified',
         });
     }
-    await axios.put(process.env.URL_BASE + `/api/file-info/${_nameFile}`, {})
+    await axios.put(process.env.URL_BASE + `/api/file-info/${_nameFile}`, {});
     let sentPath = {
         name: pathFile,
     };
-    let outputPath  = `images/webp/${nameFile}.webp`;
-    width && (outputPath  = `images/webp/${nameFile}__width_${width}.webp`);
+    let outputPath = `images/webp/${nameFile}.webp`;
+    width && (outputPath = `images/webp/${nameFile}__width_${width}.webp`);
     if (show || !TYPE_IMAGE.includes(typeFile)) {
         return res.sendFile(pathFile);
     } else if (!fs.existsSync(path.resolve(outputPath))) {

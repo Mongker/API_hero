@@ -130,12 +130,7 @@ a {
   right: 0;
   z-index: 9999;
 }
-.hotline-phone-ring-wrap-2 {
-  position: fixed;
-  bottom: 150px;
-  right: 0;
-  z-index: 9999;
-}
+
 .hotline-phone-ring-wrap:hover .hotline-bar {
   opacity: 1;
   width: 180px;
