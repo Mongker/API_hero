@@ -95,7 +95,6 @@ let addClientGoogleSheet = async (req, res) => {
             PHONE: `'${PHONE}`,
             TIME: formatedDate,
         });
-        await res.json({ message: 'ok' });
 
         await axios.post('http://localhost:1999/' + 'api/sent-mail', {
             to: email,
@@ -105,6 +104,7 @@ let addClientGoogleSheet = async (req, res) => {
                 PHONE,
             },
         });
+        await res.json({ message: 'ok' });
     } catch (e) {
         return res.json({ message: e });
     }
