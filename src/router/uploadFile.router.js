@@ -12,7 +12,8 @@ let initUploadFileRoutes = (app) => {
     router.route('/api/file-public/upload').post(imageUploader.single('file'), fileController.sentFile);
     router.route('/api/file-public/public/:date/:nameFile').get(fileController.getFile);
     // router.route('/api/file/:name/:date/:nameFile').get(fileController.getFile);
-    router.route('/api/file-info').get(AuthMiddleWare.isAuth, cacheUrlFileController.get).post(cacheUrlFileController.store);
+    router.route('/api/file-info').get(cacheUrlFileController.get).post(cacheUrlFileController.store);
+    // router.route('/api/file-info').get(AuthMiddleWare.isAuth, cacheUrlFileController.get).post(cacheUrlFileController.store);
     router.route('/api/file-info/:name').put(cacheUrlFileController.update);
     router.route('/api/file-info/:id').get(cacheUrlFileController.detail).put(cacheUrlFileController.update).delete(cacheUrlFileController.remove);
     return app.use(router);

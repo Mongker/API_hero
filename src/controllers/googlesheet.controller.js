@@ -97,7 +97,7 @@ let addClientGoogleSheet = async (req, res) => {
             TIME: formatedDate,
         });
 
-        await axios.post('http://103.57.222.215:4040/' + 'api/sent-mail', {
+        await axios.post('http://mandalakimboi.vn:4040//' + 'api/sent-mail', {
             to: email,
             subject: '[THÔNG BÁO] Có khách hàng mới',
             data: {
