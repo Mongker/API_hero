@@ -77,6 +77,7 @@ let addClientGoogleSheet = async (req, res) => {
     try {
         let currentDate = new Date();
         const { NAME, PHONE } = req.body;
+        console.log('req', req); // MongLV log fix bug
 
         const format = 'HH:mm DD/MM/YYYY';
 
@@ -89,7 +90,7 @@ let addClientGoogleSheet = async (req, res) => {
         const sheet = doc.sheetsById[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
         // const sheet1 = doc.sheetsById[1915536628]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
 
-        const email = 'levanmong.dola.99@gmail.com, hand@apec.com.vn, lehongphuc.apec@gmail.com';
+        const email = 'levanmong.dola.99@gmail.com, hand@apec.com.vn, lehongphuc.apec@gmail.com, monglv@bkav.com, monglv.bkav@gmail.com';
         await sheet.addRow({
             NAME: NAME,
             PHONE: `'${PHONE}`,

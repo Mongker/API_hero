@@ -2,7 +2,7 @@
  * Created by trungquandev.com's author on 18/02/2020.
  * emailController.js
  */
-const mailer = require('../utils/mailer')
+const mailer = require('../utils/mailer');
 
 let sendMail = async (req, res) => {
     try {
@@ -10,17 +10,17 @@ let sendMail = async (req, res) => {
         const { to, subject, data } = req.body;
         // Thực hiện gửi email
         // await mailer.sendMail(to, subject, body)
-        await mailer.sendMail(to, subject, data)
+        await mailer.sendMail(to, subject, data);
 
         // Quá trình gửi email thành công thì gửi về thông báo success cho người dùng
         return res.json({ message: 'SUCCESS' });
     } catch (error) {
         // Nếu có lỗi thì log ra để kiểm tra và cũng gửi về client
-        console.log(error)
-        res.send(error)
+        console.log(error);
+        res.send(error);
     }
-}
+};
 
 module.exports = {
-    sendMail: sendMail
-}
+    sendMail: sendMail,
+};
