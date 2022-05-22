@@ -8,10 +8,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const http = require('http');
 
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Router
-// const sliderRouter = require('./router/slider.router');
+const sliderRouter = require('./router/slider.router');
 const emailRouter = require('./router/email.router');
 const initGoogleSheetRoutes = require('./router/googlesheet.router');
 const initResourcesRoutes = require('./router/resources.router');
@@ -20,20 +20,21 @@ const initUploadFileRoutes = require('./router/uploadFile.router');
 const initChatRoutes = require('./router/chat.router');
 const initRocketRoutes = require('./router/rocketIo.router');
 const initAuthRouter = require('./router/auth.router');
+const initThreadRouter = require("./router/thread.router");
 
 // DATA
 const port = process.env.PORT || 1999;
 
 // option mongoose
-// mongoose.set('useFindAndModify', false);
-// mongoose.connect(process.env.URL_DBOnline, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
-//     () => {
-//         console.log('Database is connected');
-//     },
-//     (err) => {
-//         console.log('Can not connect to the database ' + err);
-//     },
-// );
+mongoose.set('useFindAndModify', false);
+mongoose.connect(process.env.DATA_BASE, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
+    () => {
+        console.log('Database is connected');
+    },
+    (err) => {
+        console.log('Can not connect to the database ' + err);
+    },
+);
 
 // engine
 // app.set('view engine', 'html');
@@ -57,7 +58,8 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 
 // Router
-// app.use(sliderRouter);
+app.use(sliderRouter);
+initThreadRouter(app); // Xử lý các bài viết về bảng tin
 initRocketRoutes(server); // Xử lý roketIO
 app.use(emailRouter); // api xử dụng gửi email theo yêu cầu
 initGoogleSheetRoutes(app); // Thao tác với google sheet phần người dùng
@@ -68,7 +70,6 @@ initAuthRouter(app); // Xử lý nghiệp vụ tải khoản và check tải kho
 
 // Thư viện dữ liệu website của KH Phúc
 initResourcesRoutes(app);
-
 
 server.listen(port, function () {
     console.log(`Server is running on Port: http://localhost:${port}`);
